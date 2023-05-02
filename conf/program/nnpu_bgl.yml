@@ -1,0 +1,3 @@
+method: nnpu
+prior: 0.2
+projection_size: 100

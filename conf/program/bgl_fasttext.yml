@@ -1,0 +1,44 @@
+# General arguments
+log_type: BGL
+
+# Arguments to sequencer, Drain
+preprocessing:
+  # Drain arguments.
+  drain_conf: conf/drain/BGL.ini
+  #drain_from_cache: persistence/HDFS.templates # Optional
+
+  # General Arguments
+  log_file: data/BGL/BGL.log
+  #cachefile: persistence/BGL_tokenized_seqs.pyobj # Where to cache tokenized sequences. Optional
+
+# Arguments to vectoriser
+vectorisation:
+  method: fasttext
+  embedding_dim: 50
+  #fasttext_from_cache: persistence/BGL_fasttext.model
+  #embedding_file: pretrained_embeddings/glove.840B.300d.txt
+  #cache_fasttext: persistence/BGL_fasttext.model
+  cachefile: persistence/BGL_fasttext_vectorised.pyobj
+
+# Arguments to HDBSCAN
+probabilistic_label_estimation:
+  known_fraction: 0.5
+  #anomaly_fraction: 0.01 # Optional, default 0
+  #threshold: 0.1 # Optional, default null
+  cachefile: persistence/BGL_probabilistic_labels.pyobj # Optional
+
+# Classifier arguments
+classifier:
+  config: conf/program/classic.yml
+  #config: conf/program/nnpu_bgl.yml
+  #config: conf/program/iterative.yml
+  batch_size: 1024 # Optional
+  num_epochs: 15 # Optional
+  dropout: 0.1 # Optional
+  attention: "MultiheadLinearSelfAttention" # Optional
+  attention_kwargs: # Optional
+    num_heads: 5 # Optional
+    activation: sum # Optional
+  num_layers: 2 # Optional
+  hidden_size: 100 # Optional
+
